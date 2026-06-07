@@ -4,25 +4,25 @@
 class IlinkHub < Formula
  desc "iLink-compatible multiplexer hub for WeChat ClawBot — connect one WeChat account to multiple AI agent backends"
  homepage "https://jeffkit.github.io/ilink-hub/"
- version "0.1.8"
+ version "0.1.9"
  license "MIT"
 
  on_macos do
  if Hardware::CPU.arm?
- url "https://github.com/jeffkit/ilink-hub/releases/download/v0.1.8/ilink-hub-macos-aarch64"
- sha256 "ce463ccd042620b4065c91db15ce20be57a8934cdab87b12599f686cf712a1ea"
+ url "https://github.com/jeffkit/ilink-hub/releases/download/v0.1.9/ilink-hub-macos-aarch64"
+ sha256 "494d1f051fd670c843456991bf5b185276f6c3f7795fb2b1c7d99db8f6342cb4"
 
  resource "ilink_hub_bridge" do
- url "https://github.com/jeffkit/ilink-hub/releases/download/v0.1.8/ilink-hub-bridge-macos-aarch64"
- sha256 "735e6bf08a95edb46ecc7d4ed525b9c4c810ae7fca8b4a6cf9eb51b20ca73eca"
+ url "https://github.com/jeffkit/ilink-hub/releases/download/v0.1.9/ilink-hub-bridge-macos-aarch64"
+ sha256 "4f2e6726aac0e1797fc166a555860e422ea79beb4c5035964199635cd822f365"
  end
  else
- url "https://github.com/jeffkit/ilink-hub/releases/download/v0.1.8/ilink-hub-macos-x86_64"
- sha256 "f95bc88f3f17e1c3edbf7828e0eecb518dcaab03a614520ce72058cc32d3551c"
+ url "https://github.com/jeffkit/ilink-hub/releases/download/v0.1.9/ilink-hub-macos-x86_64"
+ sha256 "e8fe7171b9c4b0aaa835607beec0654249c2a3bf5c3e058c20d8da1b80aa0a45"
 
  resource "ilink_hub_bridge" do
- url "https://github.com/jeffkit/ilink-hub/releases/download/v0.1.8/ilink-hub-bridge-macos-x86_64"
- sha256 "c623f617a071ed86893cbb3c380f95ec7681b32e7305ab3727d3dc3ce0863a30"
+ url "https://github.com/jeffkit/ilink-hub/releases/download/v0.1.9/ilink-hub-bridge-macos-x86_64"
+ sha256 "a985e82adb626d89ba9567e4303c311f8bed69ed257aba39f530f3b582e7e9e0"
  end
  end
  end
