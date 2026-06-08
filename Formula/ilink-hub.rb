@@ -10,19 +10,19 @@ class IlinkHub < Formula
   on_macos do
     if Hardware::CPU.arm?
       url "https://github.com/jeffkit/ilink-hub/releases/download/v0.1.17/ilink-hub-macos-aarch64"
-      sha256 "959285241d273dc877f0bc02180247f98420a814596b1db7eb23422b072e34e1"
+      sha256 "943f35cda38b083c02884e109a57c75af73db7785740d505d070409bce852478"
 
       resource "ilink_hub_bridge" do
         url "https://github.com/jeffkit/ilink-hub/releases/download/v0.1.17/ilink-hub-bridge-macos-aarch64"
-        sha256 "0ca778b4b67e13927536a3616e5b5db43bdb1b75ed6ec9fcb60700f75ca78d8f"
+        sha256 "ad4ce327e25574937bb8eca4dab6ee677f4a2921efda46b96792e1cf419cc236"
       end
     else
       url "https://github.com/jeffkit/ilink-hub/releases/download/v0.1.17/ilink-hub-macos-x86_64"
-      sha256 "d4c46899fae1fcf83dc83ed246b180f438d3e4f6ff1d1eff7bb5a97ca6f35c51"
+      sha256 "d3d12e7e4957488d836146319175eac6bc40af03a0f8564a13c36da099cec716"
 
       resource "ilink_hub_bridge" do
         url "https://github.com/jeffkit/ilink-hub/releases/download/v0.1.17/ilink-hub-bridge-macos-x86_64"
-        sha256 "0994e7af7afbfd0251edce76e982b8f52ff8b63cde9b7150f13fc20b21288501"
+        sha256 "679faf7be61db4792115ce638d4dcb2be51a7c6b6aaea41ecfe2af1c6e717cd9"
       end
     end
   end
