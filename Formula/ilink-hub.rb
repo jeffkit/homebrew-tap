@@ -4,25 +4,25 @@
 class IlinkHub < Formula
   desc "iLink-compatible multiplexer hub for WeChat ClawBot — connect one WeChat account to multiple AI agent backends"
   homepage "https://jeffkit.github.io/ilink-hub/"
-  version "0.1.20"
+  version "0.2.6"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/jeffkit/ilink-hub/releases/download/v0.1.20/ilink-hub-macos-aarch64"
-      sha256 "c4f21bc2b4c41000aefc4806f15171d4974b8b80c7d7baf94f89894dee905fe9"
+      url "https://github.com/jeffkit/ilink-hub/releases/download/v0.2.6/ilink-hub-macos-aarch64"
+      sha256 "472b24faac539e9f0ec93cf4103d4da6c046edcd3f84e96c9a1b655ad567a594"
 
       resource "ilink_hub_bridge" do
-        url "https://github.com/jeffkit/ilink-hub/releases/download/v0.1.20/ilink-hub-bridge-macos-aarch64"
-        sha256 "7dd16ccf92370c7dda0e41fcf6d40b5540cd2dde94de00667c36225e74284088"
+        url "https://github.com/jeffkit/ilink-hub/releases/download/v0.2.6/ilink-hub-bridge-macos-aarch64"
+        sha256 "08c6143c3db00f546b3968b1230da99b87c5752dc66bf57ae5413c53f53a7398"
       end
     else
-      url "https://github.com/jeffkit/ilink-hub/releases/download/v0.1.20/ilink-hub-macos-x86_64"
-      sha256 "0b255a9abb360353a9dd3112ec1a0ad4accd73a6649a573841932642eaf2ae87"
+      url "https://github.com/jeffkit/ilink-hub/releases/download/v0.2.6/ilink-hub-macos-x86_64"
+      sha256 "15b968cd8f225c17839cb98385e1dd36f25ac3264ca5eb5fc1c6cb8c8cee9382"
 
       resource "ilink_hub_bridge" do
-        url "https://github.com/jeffkit/ilink-hub/releases/download/v0.1.20/ilink-hub-bridge-macos-x86_64"
-        sha256 "f0b80deb48fbfaff222f1f43a955c76d2b9a3c0ddfe3416bc73713820575928c"
+        url "https://github.com/jeffkit/ilink-hub/releases/download/v0.2.6/ilink-hub-bridge-macos-x86_64"
+        sha256 "984f467507c035483c351499e92b549e9d91d395e4a9927f50528ce39d7e1536"
       end
     end
   end
@@ -39,6 +39,44 @@ class IlinkHub < Formula
         bin.install "ilink-hub-bridge-macos-x86_64" => "ilink-hub-bridge"
       end
     end
+  end
+
+  # brew services start jeffkit/tap/ilink-hub
+  # Runs ilink-hub-bridge in manager mode; manages all bridge profiles automatically.
+  #
+  # Required after install:
+  #   Edit ~/Library/LaunchAgents/homebrew.mxcl.ilink-hub.plist and add:
+  #     WEIXIN_BASE_URL  → your Hub URL (e.g. http://your-server:8765)
+  #     ILINK_ADMIN_TOKEN → admin token from Hub config
+  service do
+    run [opt_bin/"ilink-hub-bridge", "manager"]
+    keep_alive true
+    log_path var/"log/ilink-hub-bridge-manager.log"
+    error_log_path var/"log/ilink-hub-bridge-manager-error.log"
+    environment_variables(
+      RUST_LOG:        "info,ilink_hub_bridge=debug",
+      HOME:            Dir.home,
+      WEIXIN_BASE_URL: "http://your-hub-server:8765",
+      PATH:            "#{HOMEBREW_PREFIX}/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
+    )
+  end
+
+  def caveats
+    <<~EOS
+      After starting the service, edit the LaunchAgent plist to set your Hub URL and admin token:
+        #{Dir.home}/Library/LaunchAgents/homebrew.mxcl.ilink-hub.plist
+
+      Required environment variables:
+        WEIXIN_BASE_URL   → your Hub URL (e.g. http://your-server:8765)
+        ILINK_ADMIN_TOKEN → admin token from Hub config
+
+      Then restart the service:
+        brew services restart jeffkit/tap/ilink-hub
+
+      Bridge profiles and credentials are stored in:
+        ~/.ilink-hub-bridge/profiles/
+        ~/.ilink-hub-bridge/credentials/
+    EOS
   end
 
   test do
