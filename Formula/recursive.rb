@@ -10,13 +10,24 @@ class Recursive < Formula
 
   # 0.7.0 ships only the macOS arm64 binary: the upstream x86_64-apple-darwin
   # target was dropped because GitHub's macos-13 Intel runner pool was
-  # chronically backlogged (see the release notes for v0.7.0). Intel-Mac
-  # users get an `odie` message pointing at `cargo install recursive-cli`
-  # until a darwin-universal / x86_64 binary lands in 0.7.1.
+  # chronically backlogged (see the release notes for v0.7.0). The `odie` in
+  # `def install` gives Intel-Mac users a clear message instead of an opaque
+  # install error. A darwin-universal / x86_64 binary is planned for 0.7.1.
   depends_on :macos
-  fails_on :intel
 
   def install
+    if Hardware::CPU.intel?
+      odie <<~EOS
+        Recursive 0.7.0 does not provide a prebuilt x86_64 macOS binary
+        (the upstream x86_64 darwin target was dropped — see the 0.7.0
+        release notes). Build from source instead:
+
+          brew install rustup-init && rustup-init
+          cargo install recursive-cli --locked
+
+        A darwin-universal / x86_64 binary is planned for 0.7.1.
+      EOS
+    end
     bin.install "recursive"
   end
 
