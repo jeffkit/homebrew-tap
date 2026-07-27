@@ -18,7 +18,7 @@ class ImAgentproc < Formula
   # Im-agentproc is published to crates.io; bump together with the upstream crate.
 
   def install
-    system "cargo", "install", "--locked", *std_cargo_args
+    system "cargo", "install", *std_cargo_args
   end
 
   # brew services start jeffkit/tap/im-agentproc
