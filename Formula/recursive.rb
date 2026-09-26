@@ -4,8 +4,8 @@
 class Recursive < Formula
   desc "Self-improving Rust coding agent — LLM-driven, tool-using, MCP-aware"
   homepage "https://github.com/jeffkit/recursive"
-  url "https://github.com/jeffkit/recursive/releases/download/v0.8.2/recursive-aarch64-apple-darwin.tar.gz"
-  sha256 "3ad85fbc9b80dca0fcf04eb40009a1e6ec669d75bc4be1ea83e82b8dbc8156f1"
+  url "https://github.com/jeffkit/recursive/releases/download/v0.8.3/recursive-aarch64-apple-darwin.tar.gz"
+  sha256 "062e67656536d70d7c9855a5917c72d240700592690a6c31cc047400924a412e"
   license "MIT"
 
   # Releases ship only the macOS arm64 binary: the upstream x86_64-apple-darwin
